@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Pantry - Sign Up</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="auth-page">
+
+    <!-- Main registration card -->
+    <div class="auth-container">
+        <!-- Title -->
+        <div class="auth-header">
+            <h1>🥕 Smart Pantry</h1>
+            <p class="tagline">Reduce food waste. Eat smarter.</p>
+        </div>
+
+        <!-- Registration form -->
+        <h2>Create Account</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required minlength="4">
+            </div>
+
+            <!-- Error message -->
+            <div id="errorMsg" class="error-msg"></div>
+
+            <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+
+        <p class="auth-switch">
+            Already have an account? <a href="login.html">Log in</a>
+        </p>
+    </div>
+
+    <!-- Registration script -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.textContent = '';
+
+            try {
+                // Call the register endpoint
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Auto-log-in: save user info and go to dashboard
+                    localStorage.setItem('user_id', data.user_id);
+                    localStorage.setItem('username', data.username);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMsg.textContent = data.error || 'Registration failed';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Could not connect to server';
+            }
+        });
+    </script>
+</body>
+</html>
