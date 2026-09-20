@@ -1,8 +1,7 @@
 /* 
  * compression.h
- * Authors: Ismail & Alina iqadir01; axie04
+ * Authors: Ismail & Alina
  * March 6th 2025
- * CS40 HW4: arith
  * Purpose: Defines the interface for image compression, including conversion
  * between color spaces, Discrete Cosine Transform (DCT), quantization,
  * and bit-packing of compressed data into codewords

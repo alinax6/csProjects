@@ -2,7 +2,7 @@
  *
  *                     UmEmu.c
  *
- *     Assignment: um
+ *     um
  *     Authors:    Alina Xie, Qihang Yang
  *     Date:       Apr. 01, 2025
  *
@@ -17,21 +17,6 @@
 #include <assert.h>
 
 
-/**********   **********
- *
- *     
- *
- * Parameters:
- *     
- *
- * Return:
- *
- * Expects:
- *
- * Effects:
- *      
- *
-************************/
 static void flush_vals(Um_info info)
 {
         info.ra = 0;

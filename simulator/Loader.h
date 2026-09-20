@@ -2,7 +2,7 @@
  *
  *                     Loader.h
  *
- *     Assignment: um
+ *     um
  *     Authors:    Alina Xie, Qihang Yang
  *     Date:       Apr. 01, 2025
  *

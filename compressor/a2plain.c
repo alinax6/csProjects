@@ -1,5 +1,5 @@
 /* a2plain.c
- * Ismail & Alina iqadir01; axie04
+ * Ismail & Alina
  * February 20th 2025
  * Purpose:
  * Implement basic 2D array operations using row-major/column-major mappings 

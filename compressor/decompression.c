@@ -1,8 +1,7 @@
 /* 
  * decompression.c
- * Authors: Ismail & Alina iqadir01; axie04
+ * Authors: Ismail & Alina
  * March 6th 2025
- * CS40 HW4: arith
  * Purpose: Implements the image decompressor. It converts an image in a 
  * compressed format (using DCT coefficients and y, pb, pr color space) to 
  * a viewable rgb image.

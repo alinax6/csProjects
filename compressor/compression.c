@@ -1,8 +1,7 @@
 /* 
  * compression.c
- * Authors: Ismail & Alina iqadir01; axie04
+ * Authors: Ismail & Alina
  * March 6th 2025
- * CS40 HW4: arith
  * Purpose: Implements the image compressor. Reads an RGB image, converts it
  * to y, pb, pr color space, applices dct transformation on 2x2 blocks, 
  * quantizes and packs data into codewords.

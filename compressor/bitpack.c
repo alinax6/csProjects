@@ -1,8 +1,7 @@
 /* 
  * bitpack.c
- * Authors: Ismail & Alina iqadir01; axie04
+ * Authors: Ismail & Alina
  * March 6th 2025
- * CS40 HW4: arith
  * Purpose: Provides the bit-packing and bit-unpacking functionality. 
 */
 

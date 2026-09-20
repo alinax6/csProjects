@@ -1,7 +1,6 @@
 /* 
  * uarray2b.h
  * Authors: CS 40 staff
- * CS40 HW4: arith
  * From locality solutions
 */
 

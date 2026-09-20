@@ -1,7 +1,6 @@
 /* 
  * a2blocked.c
  * Authors: CS 40 staff
- * CS40 HW4: arith
  * Provided in the locality homework
 */
 

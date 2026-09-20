@@ -1,8 +1,7 @@
 /* 
  * decompression.h
- * Authors: Ismail & Alina iqadir01; axie04
+ * Authors: Ismail & Alina
  * March 6th 2025
- * CS40 HW4: arith
  * Purpose: Defines the interface for image decompression, including unpacking 
  * bit-packed codewords, inverse DCT transformation, conversion to RGB, 
  * and outputting a decompressed PPM image

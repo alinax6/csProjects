@@ -1,4 +1,4 @@
-# Makefile for arith (CS40 HW4)
+# Makefile
 # 
 # Includes build rules for 40image and ppmdiff.
 #
