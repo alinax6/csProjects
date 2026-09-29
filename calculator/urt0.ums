@@ -1,0 +1,26 @@
+# **************************************************************
+#                             urt0.ums
+#
+#  Assignment: asmcoding - RPN Calculator
+#  Authors:  Annica, Alina
+#  Date:     04/22/25
+#
+# **************************************************************
+
+
+.section init
+      .zero r0 
+      .temps r6, r7
+
+.section data
+      output "in stk\n"
+      .space 1000000
+      endstack:
+      .space 10000
+      valuestack:
+
+.section init
+      start:
+            r0 := 0
+            r2 := endstack
+            r5 := valuestack

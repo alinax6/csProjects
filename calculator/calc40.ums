@@ -1,0 +1,274 @@
+
+# set up jumptable
+.section init
+    .temps r6, r7
+    jumptable:
+        .space 256
+
+    jumptable_init:
+        push r3 on stack r2
+        push r4 on stack r2
+        push r5 on stack r2
+        r4 := jumptable
+        r3 := jumptable + 255
+        
+    loop:
+        if (r4 >s r3) goto loop_end using r5
+        m[r0][r4] := input_error
+        r4 := r4 + 1
+        goto loop
+        
+
+    loop_end:
+        pop r5 off stack r2
+        pop r4 off stack r2
+        pop r3 off stack r2
+
+.section text
+    input_error:
+        output "Unknown character '"
+        output r1
+        output "'\n"
+        goto waiting
+
+# set up digit
+.section init
+    m[r0][jumptable + '0'] := digit
+    m[r0][jumptable + '1'] := digit
+    m[r0][jumptable + '2'] := digit
+    m[r0][jumptable + '3'] := digit
+    m[r0][jumptable + '4'] := digit
+    m[r0][jumptable + '5'] := digit
+    m[r0][jumptable + '6'] := digit
+    m[r0][jumptable + '7'] := digit
+    m[r0][jumptable + '8'] := digit
+    m[r0][jumptable + '9'] := digit
+
+.section text
+    digit:
+        r4 := r1 - 48
+        push r4 on stack r5
+
+        if (r3 == 0) goto entering
+
+        pop r1 off stack r5
+        pop r4 off stack r5
+        r4 := r4 * 10
+        r4 := r4 + r1
+        push r4 on stack r5
+        goto entering
+
+# set space
+.section init
+    m[r0][jumptable + ' '] := waiting
+
+# set add
+.section init
+    m[r0][jumptable + '+'] := add
+    m[r0][jumptable + '-'] := sub
+    m[r0][jumptable + '*'] := mult
+    m[r0][jumptable + 'c'] := c
+    m[r0][jumptable + '/'] := div
+    m[r0][jumptable + 's'] := swap
+    m[r0][jumptable + '~'] := bitwise_comp
+    m[r0][jumptable + '|'] := bitwise_or
+    m[r0][jumptable + '&'] := bitwise_and
+    m[r0][jumptable + 'd'] := duplicate
+    m[r0][jumptable + 'p'] := pop_val
+    m[r0][jumptable + 'z'] := zero_stack
+
+.section text
+    add:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+
+        r1 := r1 + r3
+        push r1 on stack r5
+        goto waiting
+
+    sub:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+
+        r1 := r3 - r1
+        push r1 on stack r5
+        goto waiting
+
+    mult:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+
+        r1 := r1 * r3
+        push r1 on stack r5
+        goto waiting
+
+    c: 
+        goto check_one_paramerter linking r1
+        pop r1 off stack r5
+
+        r1 := -r1
+        push r1 on stack r5
+        goto waiting
+
+
+    swap:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+
+        push r1 on stack r5
+        push r3 on stack r5
+        goto waiting
+
+    bitwise_comp:
+        goto check_one_paramerter linking r1
+        pop r1 off stack r5
+        r1 := ~r1
+    
+        push r1 on stack r5
+        goto waiting
+
+    bitwise_or:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+        
+        r1 := r3 | r1
+    
+        push r1 on stack r5
+        goto waiting
+
+    bitwise_and:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+        
+        r1 := r3 & r1
+    
+        push r1 on stack r5
+        goto waiting
+
+    duplicate:
+        goto check_one_paramerter linking r1
+        pop r1 off stack r5
+        push r1 on stack r5
+        push r1 on stack r5
+        goto waiting
+    
+    pop_val:
+        goto check_one_paramerter linking r1
+        pop r1 off stack r5
+        goto waiting
+
+    zero_stack:
+        r4 := valuestack - r5
+        if (r4 == 0) goto waiting
+        pop r1 off stack r5
+        goto zero_stack
+
+    div:
+        goto check_two_paramerters linking r1
+        pop r1 off stack r5
+        pop r3 off stack r5
+        push r5 on stack r2
+
+        if (r1 == 0) goto div_zero
+
+        r4 := 0 # 0 => positive sign, 1 => negative sign
+
+        # negative denominator
+        if (r1 <s 0) goto neg_denom using r5
+        # negative numerator
+        if (r3 <s 0) goto neg_numerator using r5
+
+    div_two_positive:
+        r1 := r3 / r1
+        r3 := -r1
+        if (r4 == 1) r1 := r3 using r5
+        
+        pop r5 off stack r2
+        push r1 on stack r5
+        goto waiting
+
+#################################
+    
+    div_zero:
+        output "Division by zero\n"
+        push r3 on stack r5
+        push r1 on stack r5
+        goto waiting
+
+    neg_denom:
+        if (r3 <s 0) goto neg_numerator_neg_denom using r5
+        goto pos_numerator_neg_denom
+    
+    neg_numerator_neg_denom:
+        r4 := 0  # positive sign
+        r1 := -r1
+        r3 := -r3
+        goto div_two_positive
+
+    pos_numerator_neg_denom:
+        r4 := 1 # # negative sign
+        r1 := -r1
+        goto div_two_positive
+
+    neg_numerator:
+        if (r1 <s 0) goto neg_numerator_neg_denom using r5
+        goto neg_numerator_pos_denom
+
+    neg_numerator_pos_denom:
+        r4 := 1 # # negative sign
+        r3 := -r3
+        goto div_two_positive
+
+
+##############################################
+# check functions to check stack underflow for math operations
+.section text
+    check_one_paramerter: # for unary operations
+        r4 := valuestack - r5
+        if (r4 != 0) goto r1
+        output "Stack underflow---expected at least 1 element\n"
+        goto waiting
+
+    check_two_paramerters: # for binary operations
+        r4 := valuestack - r5
+        r4 := r4 / 2
+        if (r4 != 0) goto r1
+        output "Stack underflow---expected at least 2 elements\n"
+        goto waiting
+
+
+
+# waiting and entering states for run funnction
+.section text
+    waiting:
+        r3 := 0 # waiting
+        r1 := input()
+        goto waiting_with_character
+
+    entering:
+        r3 := 1 # entering
+        r1 := input()
+        goto waiting_with_character
+    
+    waiting_with_character:
+        r4 := ~r1
+        if (r4 == 0) goto program_end
+        r4 := jumptable + r1
+        r4 := m[r0][r4]
+        goto r4
+
+.section text
+    program_end:
+        halt
+
+
+.section text
+    main:
+        # output "hello\n"
+        goto waiting

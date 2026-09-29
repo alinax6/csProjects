@@ -1,0 +1,104 @@
+# **************************************************************
+#                             printd.ums
+#
+#  Assignment: asmcoding - RPN Calculator
+#  Authors:  Annica, Alina
+#  Date:     04/22/25
+#
+# **************************************************************
+
+.section init
+    .temps r6, r7
+    .zero r0
+    r0 := 0
+    m[r0][jumptable + '\n'] := print_d
+
+
+.section text
+    print_d:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+        push r5 on stack r2
+
+        # print everything in value stack, r5
+        r3 := r5
+
+    print_loop:
+        if (r3 == valuestack) goto reset_registers using r5
+        r4 := m[r0][r3]        
+        
+        push r4 on stack r2
+        output ">>> "
+        goto print_rec linking r1
+
+        r3 := r3 + 1
+        output "\n"
+        goto print_loop
+
+
+    reset_registers:
+        #output '\n'
+        pop r5 off stack r2
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r1 off stack r2    
+        goto waiting
+
+   
+    # recursive print function
+    print_rec:
+        pop r4 off stack r2
+        push r1 on stack r2
+        push r3 on stack r2
+        push r5 on stack r2
+
+        r3 := 0
+        if (r4 == 0) goto print_zero
+        # if (r4 == 0x80000000) goto print_max_neg using r5
+        if (r4 <s 0) goto print_neg using r5
+        goto print_positive
+
+    print_rec_exit:
+        pop r5 off stack r2
+        pop r3 off stack r2
+        pop r1 off stack r2
+        goto r1
+
+
+    # zero case
+    print_zero:
+        output "0"
+        goto print_rec_exit
+
+    # max negative case
+    print_max_neg:
+        output "-2147483648"
+        goto print_rec_exit
+
+    # negative case
+    print_neg:
+        output "-"
+        r4 := -r4
+        goto print_positive
+
+    # positive case
+    # r4 holds the number, and convert the numbers into digits onto stack r2
+    print_positive: 
+        # output "in print pos\n"
+        if(r4 == 0) goto print_digits
+        r3 := r3 + 1
+        r5 := r4 mod 10
+        push r5 on stack r2
+        r4 := r4 / 10
+        goto print_positive
+
+    print_digits:  // print digits from stack r2
+        # output "in print dig\n"
+        if(r3 == 0) goto print_rec_exit
+
+        pop r4 off stack r2
+        r4 := r4 + 48
+        output r4
+        r3 := r3 - 1
+        goto print_digits

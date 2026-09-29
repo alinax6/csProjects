@@ -1,0 +1,90 @@
+/**************************************************************
+ *
+ *                     README
+ *
+ *     Assignment:  asmcoding
+ *     Authors:     Alina & Annica
+ *     Date:        04/25/25
+ *
+ *
+ **************************************************************/
+ 
+Acknowledgements:
+    - lecture slides, UMASM examples on the course website
+    - TA's in OH
+        Catherine for help with maximum negative numbers
+
+
+Compile and run:
+    - Compile using
+        ./compile
+
+    - Run using
+        um calc40.um
+
+            or
+
+        um calc40.um < [INPUT FILE]
+
+
+Implemented:
+    - The implementation runs as expected, there are no known bugs
+    - All calculator operations were implemented successfully including
+      special cases and error handling.
+
+
+Explanations: 
+    - Departures: 
+        There are no departures from the recommended calling conventions.
+        
+    - Print Module:
+        The print module is implemented using recursion as recommended in the 
+        spec by breaking down each number into digits, storing them in a 
+        temporary stack r2, and then printing them in order after handling 
+        special cases like zero and negatives.
+
+    - Value Stack:
+        The value stack is represented as valuestack with r5 pointing to the
+        top of the stack.
+
+    - Sections:
+        urt0.ums:
+            .section init: 
+                Initialize the environment for the RPN program - set register r0
+                to be 0, reserve temporary registers r6 and r7, and set register
+                r2 as the stack pointer and r5 as the base pointer.  
+
+            .section data: 
+                Initializes and reserves space in memory for the 
+                value stack and the end stack for the RPN program.
+        
+        calc40.ums:
+            .section init: 
+                Sets up memory and mapping before the program runs, 
+                initializes the jumptable, and sets up stack addresses.
+
+            .section rodata: 
+                Allocates a block of 256 bytes of memory for the jumptable.
+
+            .section text: 
+                Contains the executable code for the functions
+                of the operators, input handling for waiting and entering, error
+                handling for input and operators, and stack operations.
+
+        printd.ums:
+            .section init: 
+                Initalizes registers and temporary registers (r6, r7, r0), 
+                and sets up the jumptable to call the print function - 
+                maps the newline character in the jumptable to the print_d
+                function so that pressing enter cause the value on the stack
+                to be printed.
+                
+            .section text: 
+                implements the print module - contains the executable code for 
+                recursively printing each number on the value stack in the 
+                correct format and handles special cases like zero and negative 
+                numbers.
+
+        callmain.ums:
+            .section init: Calls the main function to run the program and 
+            halts the program after main returns.

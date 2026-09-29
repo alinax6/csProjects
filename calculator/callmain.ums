@@ -1,0 +1,15 @@
+# **************************************************************
+#                             callmain.ums
+#
+#  Assignment: asmcoding - RPN Calculator
+#  Authors:  Annica, Alina
+#  Date:     04/22/25
+#
+# **************************************************************
+
+#.section init
+.temps r6, r7
+
+.section init
+        goto main linking r1
+        halt
