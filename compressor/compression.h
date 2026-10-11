@@ -1,6 +1,6 @@
 /* 
  * compression.h
- * Authors: Ismail & Alina
+ * Author: Alina
  * March 6th 2025
  * Purpose: Defines the interface for image compression, including conversion
  * between color spaces, Discrete Cosine Transform (DCT), quantization,

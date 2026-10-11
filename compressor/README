@@ -1,0 +1,38 @@
+/*
+* README
+* Author: Alina
+* March 6th, 2025
+*/
+
+Architecture:
+- 40image.c: Main driver, handles command-line arguments and calls compression 
+    or decompression functions
+- compress40.c: Implements compression, converting RGB to YPbPr, applying DCT,
+    packing values, and writing binary output
+- compression.c/h: Handles conversion from RGB to YPbPr, DCT transformation, 
+    quantization, and bit-packing
+- decompression.c/h: Handles bit-unpacking, inverse DCT, and YPbPr to RGB 
+    conversion
+- bitpack.c: Implements bit-packing utilities for extracting and setting 
+    values in a 64-bit word
+
+- Implemented image compression and decompression, ensuring 
+that images are compressed using discrete cosine transformation (DCT) and 
+bit-packed into 64bit words. The compression process effectively reduces the 
+image size while maintaining visual accuracy. The program correctly converts 
+images from RGB to the YPbPr color space, applies dct, quantizes values, and 
+packs them into binary codewords. The decompression process successfully 
+reverses these steps to reconstruct the original image.
+- Encountered an issue where the decompressed images contained unexpected 
+blue and red dots. After debugging, determined that this was due to 
+incorrect clamp values when converting Y, Pb, and Pr back to RGB. Adjusting 
+these clamp values ensured that color values remained within their valid 
+range, resolving the issue. Additionally, verified that the bit-packing and
+unpacking functions correctly handle integer overflow and boundary cases.
+The program was tested against PPM images and successfully produced compressed
+outputs that matched the expected size reductions.
+
+Time Spent:
+- 30 hours analyzing the problem
+- 40 hours implementing and testing
+- 70 hours total

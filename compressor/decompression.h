@@ -1,6 +1,6 @@
 /* 
  * decompression.h
- * Authors: Ismail & Alina
+ * Author: Alina
  * March 6th 2025
  * Purpose: Defines the interface for image decompression, including unpacking 
  * bit-packed codewords, inverse DCT transformation, conversion to RGB, 

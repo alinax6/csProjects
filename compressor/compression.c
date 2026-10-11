@@ -1,6 +1,6 @@
 /* 
  * compression.c
- * Authors: Ismail & Alina
+ * Authors: Alina
  * March 6th 2025
  * Purpose: Implements the image compressor. Reads an RGB image, converts it
  * to y, pb, pr color space, applices dct transformation on 2x2 blocks, 

@@ -1,6 +1,6 @@
 /* 
  * compress40.c
- * Authors: Ismail & Alina
+ * Author: Alina
  * March 6th 2025
  * Purpose: Defines the image compression and decompression functions for ppm
  * images. The functions are called in 40image.c use -c for compression and -d

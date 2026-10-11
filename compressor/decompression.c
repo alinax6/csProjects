@@ -1,6 +1,6 @@
 /* 
  * decompression.c
- * Authors: Ismail & Alina
+ * Authors: Alina
  * March 6th 2025
  * Purpose: Implements the image decompressor. It converts an image in a 
  * compressed format (using DCT coefficients and y, pb, pr color space) to 

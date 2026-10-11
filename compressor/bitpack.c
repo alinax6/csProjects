@@ -1,6 +1,6 @@
 /* 
  * bitpack.c
- * Authors: Ismail & Alina
+ * Author: Alina
  * March 6th 2025
  * Purpose: Provides the bit-packing and bit-unpacking functionality. 
 */
