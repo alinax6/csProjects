@@ -1,0 +1,29 @@
+/*
+* README
+* Author: Alina Xie, Qihang Yang
+* Apr. 01, 2025
+*/
+
+A fully-featured emulator for the Universal Machine (UM). It has a 32-bit
+instruction set architecture that is written in C. The emulator loads compiled
+UM binary programs and executes them instruction by instruction.
+This project implements virtual, memory management, on-demand segment 
+allocation, and garbage collection for efficient segment ID reuse.
+
+Features:
+- Full instruction set: All 14 UM instructions implemented
+- Segmented memory: Dynamic segment mapping, unmapping, and reuse
+- Virtual memory system: On-demand allocation with garbage collection
+- Efficient dispatch: Function-pointer jump table for instruction execution
+- Robust parsing: Binary instruction decoder with format validation
+- Error handling: Detects invalid segment IDs, stack underflow,
+  division by zero, and malformed binaries
+
+Project Structure and Files
+- `TheUm.c`: Program entry point, argument parsing and startup
+- `UmEmu.c` / `UmEmu.h`: Main emulation loop and machine state initialization
+- `Loader.c` / `Loader.h`: Loads binary instructions into segment 0
+- `InsParser.c` / `InsParser.h`: Decodes 32-bit words into opcode and operands
+- `UmInsSet.c` / `UmInsSet.h`: Implements all 14 UM instructions
+- `MemController.c` / `MemController.h`: Segment mapping, unmapping, and memory management
+- `UmInfo.h`: Defines the `Um_info` struct holding machine state
