@@ -1,0 +1,30 @@
+Sushi Go! Terminal Card Game
+
+An object-oriented C++ implementation of the card game Sushi Go!
+Played against two opponents in a colorized terminal UI with multi-round scoring
+and full support for all standard card types and combinations.
+
+Overview:
+Sushi Go! is a card drafting game where players pass hands
+around the table, selecting one card per turn. The goal is to collect
+combinations that score points: pairs of Tempura, triples of Sashimi,
+sets of Dumplings, and Nigiri dipped in Wasabi.
+
+This implementation faithfully recreates the full game:
+- 9 cards dealt per player per round
+- All card types and scoring rules from the original game
+
+Features
+- Full card set: Maki, Tempura, Sashimi, Dumpling, Nigiri (3 types), Wasabi, Pudding, Chopsticks
+- Multi-round scoring: Maki and Pudding scored at end of round; final scores calculated across all 3 rounds
+- Wasabi pairing logic: Correctly calculates Nigiri × 3 when preceded by Wasabi
+- Winner detection: Handles ties, including tie-breaking by pudding count
+- Chopsticks variant: Optional rule for swapping two cards for one
+
+How to Play:
+Compile:
+clang++ -Wall sushigo.cpp game.cpp player.cpp board.cpp card.cpp vector.cpp termfuncs.cpp -o sushigo
+
+Run:
+./sushigo sushi.data true
+
