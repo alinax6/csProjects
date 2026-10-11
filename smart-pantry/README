@@ -55,3 +55,5 @@ Recipe Scoring Algorithm:
 This works around TheMealDB's lack of a combined-filter endpoint by
 fetching recipes by ingredient, compiling results, and ranking them in
 application code.
+
+View live site: https://smartpantry-digk.onrender.com/
