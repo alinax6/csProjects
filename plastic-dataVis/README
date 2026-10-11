@@ -1,0 +1,43 @@
+Plastic Ocean Scroll -The Accumulation
+
+An interactive data visualization that turns scrolling into a story about
+ocean plastic pollution. As you scroll, floating plastic debris fills the screen 
+and forms the year "2019" before scattering into a sinking ocean. It ends with 
+a message about what we leave behind.
+
+Overview:
+Plastic Ocean Scroll is a scroll-driven canvas animation built with vanilla
+JavaScript and the HTML5 Canvas API. It visualizes global ocean plastic
+waste using 2019 data from 160+ countries.
+
+The piece moves through three acts:
+1. 2019: The year is formed from floating plastic particles
+2. Scatter: Particles break apart as the ocean fills with debris
+3. Sink: Trash sinks to the ocean floor and a message assembles
+
+Concept:
+The scroll bar is the timeline. As you scroll:
+- The background darkens from bright ocean blue to deep sea black
+- Plastic pieces accumulate, then scatter, then sink
+- A live counter tracks the total plastic mass (in tons) represented by your scroll position
+- The final message emerges from the sunken debris
+
+Features:
+- Scroll-driven narrative: No buttons. The story unfolds as you scroll
+- 1,000 animated particles: Each particle has a unique shape, size, rotation, and drift
+- 6 plastic shape types: Bottle caps, bags, broken fragments, straws, crumpled pieces, and rings
+- Dynamic background: Gradient shifts from bright blue to dark ocean as you descend
+- Live mass counter: Displays cumulative tons based on scroll position
+- Particle-assembled text: "2019" and the final message are rendered as clusters of particles, not fonts
+- Physics-based sinking: Staggered fall timing, quadratic acceleration, and resting positions
+- Floating pieces: 30% of particles never sink, mimicking debris that stays adrift
+- Responsive: Rebuilds particles and text on window resize
+- Performance-conscious: Gradient caching, color caching, and a square-root visible-particle curve
+
+Data:
+Meijer et al. (2021) – with minor processing by Our World in Data. “Plastic pollution entering the ocean through rivers” [dataset]. Meijer et al., “More than 1000 rivers account for 80% of global riverine plastic emissions into the ocean” [original data]. Retrieved from https://archive.ourworldindata.org/20260910-014930/grapher/plastic-entering-ocean.html 
+
+The project uses a real dataset of ocean plastic waste by country (2019) from the link above.
+`data.json` contains these 160+ entries. 
+
+View the live piece: https://alinax6.github.io/web-art/project2/
