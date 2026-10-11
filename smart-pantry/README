@@ -1,0 +1,57 @@
+Smart Pantry:
+A full-stack web app that helps you track what is in your kitchen, warns you
+before food expires, and recommends recipes using ingredients you already
+have. Built to reduce food waste and save money.
+
+Overview:
+Smart Pantry is a user-centered web application that combines pantry
+inventory tracking, expiration monitoring, recipe recommendations, and
+shopping list management into a single dashboard. It integrates with
+third-party APIs (TheMealDB for recipes, USDA FoodData Central for
+nutrition) and uses a custom scoring algorithm to prioritize recipes that
+use ingredients about to expire.
+
+Features:
+- Pantry tracking: Add items with quantities, units, and expiration dates
+- Use Soon alerts: Banner warns when items are expiring within 3 days or already expired
+- Smart recipe matching: Select ingredients you want to cook with. Recipes are ranked by match percentage
+- Expiration-priority scoring: Recipes using ingredients expiring within 7 days rank higher
+- Shopping list: Add missing recipe ingredients with one click and mark items as bought to auto-add to pantry
+- Saved recipes: Bookmark recipes for later
+- Cooking history: Track what you've cooked and when
+- Pantry templates: Starter packs like "Baking Essentials" to fill your pantry instantly
+- Nutrition lookup: Search USDA FoodData Central for calories, protein, carbs, and more
+- Responsive design: Works from desktop down to 480px mobile
+
+Tech Stack:
+- Frontend: HTML, CSS, vanilla JavaScript
+- Backend: Node.js, Express
+- Database: MongoDB
+- Recipe API: TheMealDB
+- Nutrition API: USDA FoodData Central
+- Deployment: Vercel / Render
+
+
+Architecture:
+Frontend:
+The dashboard is a single-page tabbed interface. Tab switching is handled
+in `app.js`. Clicking a tab hides all `.tab-content` sections and shows the
+matching one, then triggers a data reload for that tab.
+
+State is stored in `localStorage`:
+- `user_id`: current user's ID
+- `username`: display name in the nav
+If `user_id` is missing, the user is redirected to `login.html`.
+
+Backend:
+The Express server exposes a REST API under `/api/`. Each route module
+handles one resource
+
+Recipe Scoring Algorithm:
+1. Match percentage: `(available ingredients / total ingredients) * 100`
+2. Expiration priority: counts how many ingredients expire within 7 days
+3. Custom ranking: recipes using expiring items are surfaced first
+
+This works around TheMealDB's lack of a combined-filter endpoint by
+fetching recipes by ingredient, compiling results, and ranking them in
+application code.
